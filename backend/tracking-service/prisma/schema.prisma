@@ -13,3 +13,13 @@ datasource db {
   provider = "mysql"
   url      = env("DATABASE_URL")
 }
+
+model ItemTrack {
+  moveId          Int         @id @default(autoincrement())
+  itemId          Int
+  fromLocateId    Int
+  toLocateId      Int
+  quantity        Int
+  moveDate        Timestamp   @default(now())
+  Item            Item        @relation(fields: [itemId], references: [itemId], onDelete: NoAction, onUpdate: NoAction)
+}

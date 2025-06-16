@@ -18,6 +18,6 @@ model Notification {
   notifId       Int         @id @default(autoincrement())
   itemId        Int
   message       Text?
-  timestamp     Timestamp   @default(now())
+  notifDate     Timestamp   @default(now())
   Item          Item        @relation(fields: [itemId], references: [itemId], onDelete: NoAction, onUpdate: NoAction)
 }
