@@ -15,8 +15,8 @@ datasource db {
 }
 
 model Notification {
-  notifId       Int                         @id @default(autoincrement())
-  itemId        Int
-  message       String @db.Text
-  notifData     DateTime @db.Timestamp(0)   @default(now())
+  notifId   Int      @id @default(autoincrement())
+  itemId    Int
+  message   String   @db.Text
+  notifData DateTime @default(now()) @db.Timestamp(0)
 }
