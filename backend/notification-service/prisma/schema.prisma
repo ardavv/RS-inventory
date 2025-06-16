@@ -15,8 +15,9 @@ datasource db {
 }
 
 model Notification {
-  id            Int       @id @default(autoincrement())
-  itemId        Item      @relation(fields: [itemId], references: [id])
-  message       String?   
-  date          DateTime  @default(now())
+  notifId       Int         @id @default(autoincrement())
+  itemId        Int
+  message       Text?
+  timestamp     Timestamp   @default(now())
+  Item          Item        @relation(fields: [itemId], references: [itemId], onDelete: NoAction, onUpdate: NoAction)
 }
