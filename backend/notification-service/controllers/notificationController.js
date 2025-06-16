@@ -7,6 +7,8 @@ exports.getNotifications = async (req, res) => {
     const notifications = await prisma.notification.findMany({
         orderBy: { notifDate: 'desc' },
     });
+    const userId = req.headers["x-user-id"]; // <-- INI CARA AKSESNYA
+    console.log("User ID from gateway:", userId);
     res.json(notifications);
 };
 

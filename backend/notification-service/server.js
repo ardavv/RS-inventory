@@ -6,7 +6,7 @@ dotenv.config();
 
 app.use(express.json());
 
-app.use("/api/notification", require("./routes/notificationRoutes"));
+app.use("/", require("./routes/notificationRoutes"));
 
 /*
     Port Exposure
