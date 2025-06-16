@@ -1,0 +1,40 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+enum Status {
+  Dipesan
+  Diterima
+  Dibatalkan
+}
+
+model Purchase {
+  buyID     Int      @id @default(autoincrement())
+  itemID    Int
+  vendorID  Int
+  quantity  Int
+  buyDate   DateTime @default(now())
+  totPrice  Decimal  @db.Decimal(10, 2)
+  status    Status
+
+  item      Item     @relation(fields: [itemID], references: [itemID])
+  vendor    Vendor   @relation(fields: [vendorID], references: [vendorID])
+}
+
+model Vendor {
+  vendorID    Int       @id @default(autoincrement())
+  vendorName  String
+  contact     String
+  purchases   Purchase[]
+}
+
+model Item {
+  itemID    Int       @id @default(autoincrement())
+  name      String
+  purchases Purchase[]
+}
