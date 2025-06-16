@@ -19,6 +19,7 @@ exports.register = async (req, res) => {
 };
 
 exports.login = async (req, res) => {
+    console.log(`[AuthService] Login attempt for ${req.body.email} at ${new Date().toISOString()}`);
     const { email, password } = req.body;
     const user = await prisma.user.findUnique({ where: { email } });
     if (!user || !user.password)
