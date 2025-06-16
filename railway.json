@@ -1,0 +1,60 @@
+{
+    "builds": [
+        {
+            "src": "backend/api-gateway/package.json",
+            "use": "@railway/node",
+            "name": "api-gateway"
+        },
+        {
+            "src": "backend/auth-service/package.json",
+            "use": "@railway/node",
+            "name": "auth-service"
+        },
+        {
+            "src": "backend/inventaris-service/package.json",
+            "use": "@railway/node",
+            "name": "inventaris-service"
+        },
+        {
+            "src": "backend/notification-service/package.json",
+            "use": "@railway/node",
+            "name": "notification-service"
+        },
+        {
+            "src": "backend/purchase-service/package.json",
+            "use": "@railway/node",
+            "name": "purchase-service"
+        },
+        {
+            "src": "backend/tracking-service/package.json",
+            "use": "@railway/node",
+            "name": "tracking-service"
+        }
+    ],
+    "routes": [
+        {
+            "src": "/api/auth/(.*)",
+            "dest": "/auth-service/$1"
+        },
+        {
+            "src": "/api/items/(.*)",
+            "dest": "/inventaris-service/$1"
+        },
+        {
+            "src": "/api/notification/(.*)",
+            "dest": "/notification-service/$1"
+        },
+        {
+            "src": "/api/purchases/(.*)",
+            "dest": "/purchase-service/$1"
+        },
+        {
+            "src": "/api/tracking/(.*)",
+            "dest": "/tracking-service/$1"
+        },
+        {
+            "src": "/(.*)",
+            "dest": "/api-gateway/$1"
+        }
+    ]
+}
