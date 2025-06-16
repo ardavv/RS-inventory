@@ -1,16 +1,15 @@
 const express = require("express");
 const router = express.Router();
 
-router.get("/", (req, res) => {
-    res.send("Notification Service");
-});
+const controller = require("../controllers/notificationController");
 
-router.get("/:id", (req, res) => {
-    res.send("Notification Service");
-});
+// List Notifications
+router.get("/", controller.getNotifications);
 
-router.post("/", (req, res) => {
-    res.send("Notification Service");
-});
+// Delete a Notification
+router.delete("/:id", controller.deleteNotification);
+
+// Post a Notification
+router.post("/", controller.postNotification);
 
 module.exports = router;

@@ -1,14 +1,10 @@
 // notification-service/server.js
 const express = require("express");
 const dotenv = require("dotenv");
-
 const app = express();
 dotenv.config();
 
 app.use(express.json());
-
-const bodyParser = require("body-parser");
-app.use(bodyParser.json());
 
 app.use("/api/notification", require("./routes/notificationRoutes"));
 
