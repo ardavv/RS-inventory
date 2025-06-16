@@ -1,32 +1,32 @@
 {
     "builds": [
         {
-            "src": "backend/api-gateway/package.json",
+            "src": "api-gateway/package.json",
             "use": "@railway/node",
             "name": "api-gateway"
         },
         {
-            "src": "backend/auth-service/package.json",
+            "src": "auth-service/package.json",
             "use": "@railway/node",
             "name": "auth-service"
         },
         {
-            "src": "backend/inventaris-service/package.json",
+            "src": "inventaris-service/package.json",
             "use": "@railway/node",
             "name": "inventaris-service"
         },
         {
-            "src": "backend/notification-service/package.json",
+            "src": "notification-service/package.json",
             "use": "@railway/node",
             "name": "notification-service"
         },
         {
-            "src": "backend/purchase-service/package.json",
+            "src": "purchase-service/package.json",
             "use": "@railway/node",
             "name": "purchase-service"
         },
         {
-            "src": "backend/tracking-service/package.json",
+            "src": "tracking-service/package.json",
             "use": "@railway/node",
             "name": "tracking-service"
         }
