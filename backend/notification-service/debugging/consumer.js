@@ -1,4 +1,5 @@
 // consumer.js
+const dotenv = require("dotenv");
 dotenv.config();
 const amqp = require('amqplib');
 
