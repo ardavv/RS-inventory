@@ -28,6 +28,8 @@ exports.login = async (req, res) => {
     if (!isValid) return res.status(401).json({ error: "Invalid credentials" });
     
     const token = jwt.sign({ id: user.id }, JWT_SECRET);
+    //debug
+    console.log(`[AuthService] User ${user.email} logged in with token: ${token}`);
     res.json({ token });
 };
 

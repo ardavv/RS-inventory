@@ -10,6 +10,18 @@ const passport = require("passport");
 
 router.post("/register", register);
 router.post("/login", login);
+router.get(
+  "/login", (req, res) => {
+    res.status(200).json({ message: "Login endpoint" });
+  }
+);
+
+router.get(
+  "/",
+  (req, res) => {
+    res.status(200).json({ message: "Auth service is running" });
+  }
+);
 
 router.get(
   "/google",

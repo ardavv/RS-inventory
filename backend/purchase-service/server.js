@@ -6,8 +6,8 @@ const app = express();
 const PORT = process.env.PORT || 3002;
 
 app.use(bodyParser.json());
-app.use('/purchase', purchaseRoutes);
+app.use('/', purchaseRoutes);
 
 app.listen(PORT, () => {
-  console.log(`Purchase service running on port ${PORT}`);
+  console.log(`Purchase service running on http://localhost:${PORT}`);
 });
