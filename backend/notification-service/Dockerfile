@@ -10,6 +10,9 @@ RUN npm install
 # Copy the rest of the application code
 COPY . .
 
+# Menjalankan prisma generate untuk membuat client
+RUN npx prisma generate
+
 # Stage 2: Production image
 FROM node:18-alpine
 

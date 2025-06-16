@@ -1,0 +1,108 @@
+version: '3.8'
+
+services:
+  #---------------------------------
+  # API Gateway (Pintu Masuk Utama)
+  #---------------------------------
+  api-gateway:
+    container_name: api-gateway
+    build: ./api-gateway
+    restart: unless-stopped
+    ports:
+      # Expose port 3000 dari container ke port 3000 di mesin Anda
+      - "3000:3000"
+    env_file:
+      - ./.env # Ambil semua variabel dari file .env
+    environment:
+      # Tentukan variabel spesifik yang digunakan service ini
+      PORT: ${PORT_GATEWAY}
+    networks:
+      - app-network
+
+  #---------------------------------
+  # Auth Service
+  #---------------------------------
+  auth-service:
+    container_name: auth-service
+    build: ./auth-service
+    restart: unless-stopped
+    env_file:
+      - ./.env
+    environment:
+      # Tentukan variabel spesifik yang digunakan service ini
+      PORT: ${PORT_AUTH}
+      DATABASE_URL: ${DATABASE_URL_AUTH}
+    networks:
+      - app-network
+    command: sh -c "npx prisma migrate deploy && node server.js"
+
+  #---------------------------------
+  # Inventaris Service
+  #---------------------------------
+  inventaris-service:
+    container_name: inventaris-service
+    build: ./inventaris-service
+    restart: unless-stopped
+    env_file:
+      - ./.env
+    environment:
+      PORT: ${PORT_INVENTORY}
+      DATABASE_URL: ${DATABASE_URL_INVENTORY}
+    networks:
+      - app-network
+    command: sh -c "npx prisma migrate deploy && node server.js"
+
+  #---------------------------------
+  # Notification Service
+  #---------------------------------
+  notification-service:
+    container_name: notification-service
+    build: ./notification-service
+    restart: unless-stopped
+    env_file:
+      - ./.env
+    environment:
+      PORT: ${PORT_NOTIFICATION}
+      DATABASE_URL: ${DATABASE_URL_NOTIFICATION}
+    networks:
+      - app-network
+    command: sh -c "npx prisma migrate deploy && node server.js"
+
+  #---------------------------------
+  # Purchase Service
+  #---------------------------------
+  purchase-service:
+    container_name: purchase-service
+    build: ./purchase-service
+    restart: unless-stopped
+    env_file:
+      - ./.env
+    environment:
+      PORT: ${PORT_PURCHASE}
+      DATABASE_URL: ${DATABASE_URL_PURCHASE}
+    networks:
+      - app-network
+    command: sh -c "npx prisma migrate deploy && node server.js"
+  
+  #---------------------------------
+  # Tracking Service
+  #---------------------------------
+  tracking-service:
+    container_name: tracking-service
+    build: ./tracking-service
+    restart: unless-stopped
+    env_file:
+      - ./.env
+    environment:
+      PORT: ${PORT_TRACKING}
+      DATABASE_URL: ${DATABASE_URL_TRACKING}
+    networks:
+      - app-network
+    command: sh -c "npx prisma migrate deploy && node server.js"
+
+#---------------------------------
+# Jaringan Internal untuk semua service
+#---------------------------------
+networks:
+  app-network:
+    driver: bridge
