@@ -4,6 +4,15 @@ const dotenv = require("dotenv");
 const app = express();
 dotenv.config();
 
+/*
+    RabbidMQ Init
+*/
+const { connectRabbitMQ } = require('./configs/rabbidmq');
+connectRabbitMQ();
+
+/*
+    Express Uses
+*/
 app.use(express.json());
 
 app.use("/", require("./routes/notificationRoutes"));
