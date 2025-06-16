@@ -15,11 +15,10 @@ datasource db {
 }
 
 model ItemTrack {
-  moveId          Int         @id @default(autoincrement())
+  moveId          Int                         @id @default(autoincrement())
   itemId          Int
   fromLocateId    Int
   toLocateId      Int
   quantity        Int
-  moveDate        Timestamp   @default(now())
-  Item            Item        @relation(fields: [itemId], references: [itemId], onDelete: NoAction, onUpdate: NoAction)
+  moveDate        DateTime @db.Timestamp(0)   @default(now())
 }
