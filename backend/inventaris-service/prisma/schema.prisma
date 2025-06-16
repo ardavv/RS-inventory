@@ -1,55 +1,55 @@
 generator client {
-provider = "prisma-client-js"
+    provider = "prisma-client-js"
 }
 
 datasource db {
-provider = "mysql"
-url = env("DATABASE_URL")
+    provider = "mysql"
+    url = env("DATABASE_URL")
 }
 
 model Item {
-itemID Int @id @default(autoincrement())
-name String
-categoryID Int
-category Category @relation(fields: [categoryID], references: [categoryID])
-quantity Int
-expiresIn DateTime
-createdBy Int // user ID dari auth-service
-createdAt DateTime @default(now())
-notifications Notification[]
-movements ItemMove[]
+    itemID Int @id @default(autoincrement())
+    name String
+    categoryID Int
+    category Category @relation(fields: [categoryID], references: [categoryID])
+    quantity Int
+    expiresIn DateTime
+    createdBy Int // user ID dari auth-service
+    createdAt DateTime @default(now())
+    notifications Notification[]
+    movements ItemMove[]
 }
 
 model Category {
-categoryID Int @id @default(autoincrement())
-categoryName String
-items Item[]
+    categoryID Int @id @default(autoincrement())
+    categoryName String
+    items Item[]
 }
 
 model Notification {
-notifID Int @id @default(autoincrement())
-itemID Int
-item Item @relation(fields: [itemID], references: [itemID])
-message String
-notifDate DateTime @default(now())
+    notifID Int @id @default(autoincrement())
+    itemID Int
+    item Item @relation(fields: [itemID], references: [itemID])
+    message String
+    notifDate DateTime @default(now())
 }
 
 model StorageLocation {
-locationID Int @id @default(autoincrement())
-locationName String
-maxCapacity Int
-fromMoves ItemMove[] @relation("FromLocation")
-toMoves ItemMove[] @relation("ToLocation")
+    locationID Int @id @default(autoincrement())
+    locationName String
+    maxCapacity Int
+    fromMoves ItemMove[] @relation("FromLocation")
+    toMoves ItemMove[] @relation("ToLocation")
 }
 
 model ItemMove {
-moveID Int @id @default(autoincrement())
-itemID Int
-item Item @relation(fields: [itemID], references: [itemID])
-fromLocateID Int
-fromLocation StorageLocation @relation("FromLocation", fields: [fromLocateID], references: [locationID])
-toLocateID Int
-toLocation StorageLocation @relation("ToLocation", fields: [toLocateID], references: [locationID])
-quantity Int
-moveDate DateTime @default(now())
+    moveID Int @id @default(autoincrement())
+    itemID Int
+    item Item @relation(fields: [itemID], references: [itemID])
+    fromLocateID Int
+    fromLocation StorageLocation @relation("FromLocation", fields: [fromLocateID], references: [locationID])
+    toLocateID Int
+    toLocation StorageLocation @relation("ToLocation", fields: [toLocateID], references: [locationID])
+    quantity Int
+    moveDate DateTime @default(now())
 }
