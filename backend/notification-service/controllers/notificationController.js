@@ -1,5 +1,5 @@
 const { PrismaClient } = require("@prisma/client");
-// const { publishNotification } = require('../configs/rabbidmq');
+const { publishNotification } = require('../configs/rabbidmq');
 
 const prisma = new PrismaClient();
 
@@ -33,7 +33,7 @@ exports.postNotification = async (req, res) => {
     });
     
     // Publish to RabbidMQ
-    // await publishNotification({ itemId, message });
+    await publishNotification({ itemId, message });
 
     res.status(201).json(newNotification);
 }

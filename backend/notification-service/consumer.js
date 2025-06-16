@@ -1,25 +1,38 @@
-// consumer.js
+/* 
+    Consumer testing  
+    -> Untuk keperluan debugging
+*/
 const dotenv = require("dotenv");
 dotenv.config();
 const amqp = require('amqplib');
 
 async function startConsumer() {
-  const connection = await amqp.connect(process.env.RABBITMQ_URL);
-  const channel = await connection.createChannel();
+  try {
+    const connection = await amqp.connect('amqp://localhost'); // or use process.env.BROKER_URL
+    const channel = await connection.createChannel();
 
-  await channel.assertExchange('notifications', 'fanout', { durable: true });
+    const exchangeName = 'notifications';
 
-  // Create a random, exclusive queue for each consumer
-  const q = await channel.assertQueue('', { exclusive: true });
-  await channel.bindQueue(q.queue, 'notifications', '');
+    // Ensure the exchange exists
+    await channel.assertExchange(exchangeName, 'fanout', { durable: true });
 
-  console.log('Waiting for notifications...');
+    // Create an exclusive, auto-delete queue (temporary, good for testing)
+    const { queue } = await channel.assertQueue('', { exclusive: true });
 
-  channel.consume(q.queue, (msg) => {
-    if (msg.content) {
-      console.log('Notification received:', msg.content.toString());
-    }
-  }, { noAck: true });
+    // Bind the queue to the exchange
+    await channel.bindQueue(queue, exchangeName, '');
+
+    console.log(` [*] Waiting for messages in queue: ${queue}. To exit press CTRL+C`);
+
+    channel.consume(queue, (msg) => {
+      if (msg.content) {
+        console.log('Received:', msg.content.toString());
+      }
+    }, { noAck: true }); // auto-acknowledge
+
+  } catch (err) {
+    console.error('RabbitMQ Consumer error:', err);
+  }
 }
 
 startConsumer();

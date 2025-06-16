@@ -1,5 +1,6 @@
 const dotenv = require("dotenv");
 dotenv.config();
+
 const amqp = require('amqplib');
 
 let channel;
@@ -22,8 +23,16 @@ function publishNotification(message) {
   if (!channel) {
     throw new Error('RabbitMQ channel not initialized');
   }
-
-  channel.publish('notifications', '', Buffer.from(JSON.stringify(message)));
+  try {
+    channel.publish(
+      'notifications',
+      '',
+      Buffer.from(JSON.stringify(message)),
+      {persistent: true,}
+    );
+  } catch (err) {
+    console.error('Failed to publish notification:', err);
+  }
 }
 
 module.exports = {
