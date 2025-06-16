@@ -6,7 +6,6 @@
 
 generator client {
   provider = "prisma-client-js"
-  output   = "./prisma"
 }
 
 datasource db {
@@ -18,5 +17,5 @@ model Notification {
   notifId   Int      @id @default(autoincrement())
   itemId    Int
   message   String   @db.Text
-  notifData DateTime @default(now()) @db.Timestamp(0)
+  notifDate DateTime @default(now()) @db.Timestamp(0)
 }
