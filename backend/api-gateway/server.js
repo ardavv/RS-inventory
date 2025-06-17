@@ -23,27 +23,27 @@ if (!JWT_SECRET) {
 const services = [
   {
     route: "/api/auth",
-    target: "http://localhost:3001",
+    target: process.env.AUTH_SERVICE_URL || "http://localhost:3001",
     auth: false, // Tidak memerlukan autentikasi
   },
   {
     route: "/api/inventaris",
-    target: "http://localhost:3002",
+    target: process.env.INVENTORY_SERVICE_URL || "http://localhost:3002",
     auth: true, // Memerlukan autentikasi
   },
   {
     route: "/api/notification",
-    target: "http://localhost:3003",
+    target: process.env.NOTIFICATION_SERVICE_URL || "http://localhost:3003",
     auth: true,
   },
   {
     route: "/api/purchase",
-    target: "http://localhost:3004",
+    target: process.env.PURCHASE_SERVICE_URL || "http://localhost:3004",
     auth: true,
   },
   {
     route: "/api/tracking",
-    target: "http://localhost:3005",
+    target: process.env.TRACKING_SERVICE_URL || "http://localhost:3005",
     auth: true,
   },
 ];
