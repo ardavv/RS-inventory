@@ -38,8 +38,7 @@ async function connectRabbitMQ() {
 function publishNotification(message) {
   const payload = JSON.stringify(message);
   // AMQP
-  if (AMQP_toggle) {
-    try {
+  try {
     if (!channel) throw new Error('RabbitMQ channel not connected!'); // Cek koneksi
     channel.publish(
       'notifications',
@@ -53,8 +52,12 @@ function publishNotification(message) {
   }
   }
   // MQTT
-  if (MQ) {
-    
+  try {
+    if (!mqttClient.connected) throw new Error("MQTT client not connected!"); // Cek koneksi
+    mqttClient.publish(MQTT_TOPIC, payload);
+    console.log("Published to MQTT:", payload);
+  } catch (err) {
+    console.error("MQTT publish failed:", err);
   }
 }
 
