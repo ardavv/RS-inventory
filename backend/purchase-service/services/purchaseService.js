@@ -1,4 +1,4 @@
-const { PrismaClient, Prisma } = require("@prisma/client");
+const { PrismaClient, Prisma } = require('@prisma/client');
 const prisma = new PrismaClient();
 
 // Ambil semua pembelian
@@ -14,7 +14,7 @@ exports.getAllPurchases = () => {
 // Ambil pembelian berdasarkan ID
 exports.getPurchaseById = (id) => {
   if (!id || isNaN(id)) {
-    throw new Error("ID pembelian tidak valid");
+    throw new Error("ID pembelian tidak valid, sayang 😢");
   }
 
   return prisma.purchase.findUnique({
@@ -35,7 +35,7 @@ exports.createPurchase = ({ itemID, vendorID, quantity, totPrice, status }) => {
     totPrice === undefined ||
     status === undefined
   ) {
-    throw new Error("Data pembelian tidak lengkap");
+    throw new Error("Data pembelian tidak lengkap, sayang 😿");
   }
 
   return prisma.purchase.create({
@@ -58,5 +58,16 @@ exports.updatePurchaseStatus = (id, status) => {
   return prisma.purchase.update({
     where: { buyID: id },
     data: { status },
+  });
+};
+
+// Hapus pembelian berdasarkan ID
+exports.deletePurchase = async (id) => {
+  if (!id || isNaN(id)) {
+    throw new Error("ID pembelian tidak valid");
+  }
+
+  return prisma.purchase.delete({
+    where: { buyID: id },
   });
 };
