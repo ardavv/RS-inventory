@@ -6,7 +6,7 @@ const mqtt = require("mqtt");
 
 const AMQP_BROKER = process.env.AMQP_BROKER_URL || "amqp://localhost:5672";
 const MQTT_BROKER = process.env.MQTT_BROKER_URL || "mqtt://localhost:1883";
-const MQTT_TOPIC = "notification";
+const TOPIC = "notification";
 
 /*
     MQTT Init
@@ -24,7 +24,7 @@ async function connectRabbitMQ() {
     const connection = await amqp.connect(AMQP_BROKER);
     channel = await connection.createChannel();
     // Fanout = pesan dikirim ke semua queue tak terkecuali
-    await channel.assertExchange('notifications', 'fanout', { durable: true });
+    await channel.assertExchange(TOPIC, 'fanout', { durable: true });
     console.log('Connected to RabbitMQ');
   } catch (err) {
     console.error('RabbitMQ connection error:', err);
@@ -40,7 +40,7 @@ function publishNotification(message) {
   try {
     if (!channel) throw new Error('RabbitMQ channel not connected!'); // Cek koneksi
     channel.publish(
-      'notifications',
+      TOPIC,
       '',
       Buffer.from(payload),
       {persistent: true,}
@@ -52,7 +52,7 @@ function publishNotification(message) {
   // MQTT
   try {
     if (!mqttClient.connected) throw new Error("MQTT client not connected!"); // Cek koneksi
-    mqttClient.publish(MQTT_TOPIC, payload);
+    mqttClient.publish(TOPIC, payload);
     console.log("Published to MQTT:", payload);
   } catch (err) {
     console.error("MQTT publish failed:", err);

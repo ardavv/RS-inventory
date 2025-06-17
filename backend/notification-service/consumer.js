@@ -11,7 +11,7 @@ async function startConsumer() {
     const connection = await amqp.connect('amqp://localhost'); // or use process.env.BROKER_URL
     const channel = await connection.createChannel();
 
-    const exchangeName = 'notifications';
+    const exchangeName = 'notification';
 
     // Ensure the exchange exists
     await channel.assertExchange(exchangeName, 'fanout', { durable: true });
