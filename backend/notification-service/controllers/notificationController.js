@@ -10,8 +10,8 @@ exports.getNotifications = async (req, res) => {
             orderBy: { notifDate: 'desc' },
         });
         const userId = req.headers["x-user-id"]; // <-- INI CARA AKSESNYA
-    console.log("User ID from gateway:", userId);
-    res.json(notifications);
+        console.log("User ID from gateway:", userId);
+        res.json(notifications);
     } catch (error) {
         console.error("Error fetching notifications:", error);
         res.status(500).json({ error: "Failed to retrieve notifications!" });
