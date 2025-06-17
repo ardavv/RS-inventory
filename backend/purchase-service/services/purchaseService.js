@@ -60,3 +60,14 @@ exports.updatePurchaseStatus = (id, status) => {
     data: { status },
   });
 };
+
+// Hapus pembelian berdasarkan ID
+exports.deletePurchase = async (id) => {
+  if (!id || isNaN(id)) {
+    throw new Error("ID pembelian tidak valid");
+  }
+
+  return prisma.purchase.delete({
+    where: { buyID: id },
+  });
+};

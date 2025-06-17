@@ -32,3 +32,18 @@ exports.updatePurchaseStatus = async (req, res) => {
   const updated = await purchaseService.updatePurchaseStatus(parseInt(req.params.id), req.body.status);
   res.json(updated);
 };
+
+exports.deletePurchase = async (req, res) => {
+  try {
+    const id = parseInt(req.params.id);
+    if (!id || isNaN(id)) {
+      return res.status(400).json({ error: "ID tidak valid" });
+    }
+
+    const deletedPurchase = await purchaseService.deletePurchase(id);
+    res.json({ message: "Purchase deleted successfully", data: deletedPurchase });
+  } catch (error) {
+    console.error("Error deleting purchase:", error);
+    res.status(500).json({ error: "Failed to delete purchase" });
+  }
+};
