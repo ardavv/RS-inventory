@@ -13,7 +13,7 @@ exports.getItemById = async (req, res) => {
 exports.createItem = async (req, res) => {
   try {
     // 1. Ambil user ID dari header
-    const userId = req.headers["x-user-id"];
+    const userId = parseInt(req.headers["x-user-id"]);
 
     // Jika tidak ada user ID, kirim error (opsional tapi direkomendasikan)
     if (!userId) {

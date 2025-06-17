@@ -1,5 +1,3 @@
-// File: api-gateway.js
-
 const express = require("express");
 const {
   createProxyMiddleware,
@@ -141,11 +139,13 @@ services.forEach(({ route, target, auth }) => {
        */
       error: (err, req, res) => {
         console.error(`[GATEWAY] Proxy error for ${req.path}:`, err.message);
-        res
-          .status(502)
-          .json({
+
+        // Periksa apakah header sudah terkirim sebelum mencoba mengirim
+        if (!res.headersSent) {
+          res.status(502).json({
             error: "Bad Gateway: The service is temporarily unavailable.",
           });
+        }
       },
     },
   };
