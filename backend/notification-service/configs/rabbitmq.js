@@ -6,8 +6,6 @@ const mqtt = require("mqtt");
 
 const AMQP_BROKER = process.env.AMQP_BROKER_URL || "amqp://localhost:5672";
 const MQTT_BROKER = process.env.MQTT_BROKER_URL || "mqtt://localhost:1883";
-const MQTT_toggle = process.env.ENABLE_MQTT || "true";
-const AMQP_toggle = process.env.ENABLE_AMQP || "true";
 const MQTT_TOPIC = "notification";
 
 /*
@@ -25,7 +23,8 @@ async function connectRabbitMQ() {
   try {
     const connection = await amqp.connect(AMQP_BROKER);
     channel = await connection.createChannel();
-    await channel.assertExchange('notifications', 'fanout', { durable: true }); // Fanout exchange
+    // Fanout = pesan dikirim ke semua queue tak terkecuali
+    await channel.assertExchange('notifications', 'fanout', { durable: true });
     console.log('Connected to RabbitMQ');
   } catch (err) {
     console.error('RabbitMQ connection error:', err);
