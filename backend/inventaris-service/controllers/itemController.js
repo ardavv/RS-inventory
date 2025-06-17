@@ -15,7 +15,6 @@ exports.createItem = async (req, res) => {
     // 1. Ambil user ID dari header
     const userId = parseInt(req.headers["x-user-id"]);
 
-    // Jika tidak ada user ID, kirim error (opsional tapi direkomendasikan)
     if (!userId) {
       return res.status(400).json({ error: "User ID is missing." });
     }

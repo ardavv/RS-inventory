@@ -52,7 +52,7 @@ exports.createPurchase = ({ itemID, vendorID, quantity, totPrice, status }) => {
 // Update status pembelian
 exports.updatePurchaseStatus = (id, status) => {
   if (!id || !status) {
-    throw new Error("ID dan status tidak boleh kosong ya, cintaku 💌");
+    throw new Error("ID dan status tidak boleh kosong");
   }
 
   return prisma.purchase.update({
