@@ -12,17 +12,14 @@ exports.getPurchaseById = async (req, res) => {
 
 exports.createPurchase = async (req, res) => {
   try {
-    // Validasi input dasar
     const { itemID, vendorID, quantity } = req.body;
     if (!itemID || !vendorID || !quantity) {
       return res.status(400).json({ error: "Missing required fields" });
     }
 
     const newPurchase = await purchaseService.createPurchase(req.body);
-    // Kirim status 201 untuk "Created"
     res.status(201).json(newPurchase);
   } catch (error) {
-    // Jika terjadi error di service/database, tangkap di sini
     console.error("Error creating purchase:", error);
     res.status(500).json({ error: "Failed to create purchase" });
   }

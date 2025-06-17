@@ -14,7 +14,7 @@ exports.getAllPurchases = () => {
 // Ambil pembelian berdasarkan ID
 exports.getPurchaseById = (id) => {
   if (!id || isNaN(id)) {
-    throw new Error("ID pembelian tidak valid, sayang 😢");
+    throw new Error("ID pembelian tidak valid");
   }
 
   return prisma.purchase.findUnique({
@@ -35,7 +35,7 @@ exports.createPurchase = ({ itemID, vendorID, quantity, totPrice, status }) => {
     totPrice === undefined ||
     status === undefined
   ) {
-    throw new Error("Data pembelian tidak lengkap, sayang 😿");
+    throw new Error("Data pembelian tidak lengkap");
   }
 
   return prisma.purchase.create({
@@ -52,7 +52,7 @@ exports.createPurchase = ({ itemID, vendorID, quantity, totPrice, status }) => {
 // Update status pembelian
 exports.updatePurchaseStatus = (id, status) => {
   if (!id || !status) {
-    throw new Error("ID dan status tidak boleh kosong ya, cintaku 💌");
+    throw new Error("ID dan status tidak boleh kosong");
   }
 
   return prisma.purchase.update({
