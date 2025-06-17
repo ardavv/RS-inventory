@@ -19,7 +19,7 @@ if (!JWT_SECRET) {
 }
 
 // --- KONFIGURASI MICROSERVICES ---
-// Memusatkan konfigurasi untuk kemudahan pengelolaan.
+// auth = true menandakan rute ini memerlukan autentikasi
 const services = [
   {
     route: "/api/auth",
@@ -57,7 +57,7 @@ app.use(express.json());
 app.use(
   rateLimit({
     windowMs: 60 * 1000, // 1 menit
-    max: 100, // Maksimal 100 request per IP per menit
+    max: 5, // Maksimal 5 request per IP per menit
     message: { error: "Too many requests, please try again later." },
     standardHeaders: true,
     legacyHeaders: false,
@@ -101,7 +101,7 @@ services.forEach(({ route, target, auth }) => {
     target,
     changeOrigin: true,
     pathRewrite: {
-      [`^${route}`]: "", // Menghapus prefix rute, misal: /api/inventaris/items -> /items
+      [`^${route}`]: "", // Menghapus prefix rute, misal: /api/auth/login -> /login
     },
     on: {
       /**

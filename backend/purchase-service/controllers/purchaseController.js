@@ -22,7 +22,7 @@ exports.createPurchase = async (req, res) => {
     // Kirim status 201 untuk "Created"
     res.status(201).json(newPurchase);
   } catch (error) {
-    // Jika terjadi error di service/database, tangkap di sini
+    // Jika terjadi error di service/database
     console.error("Error creating purchase:", error);
     res.status(500).json({ error: "Failed to create purchase" });
   }
