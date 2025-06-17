@@ -4,8 +4,10 @@ const dotenv = require("dotenv");
 const app = express();
 dotenv.config();
 
+/*
+    Express Uses
+*/
 app.use(express.json());
-
 app.use("/api/tracking", require("./routes/trackingRoutes"));
 
 /*

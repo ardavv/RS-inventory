@@ -3,6 +3,7 @@ const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
 
 exports.viewAll = async (req, res) => {
+    // Get All
     try {
         const tracks = await prisma.itemTrack.findMany();
         res.json(tracks);
@@ -13,9 +14,10 @@ exports.viewAll = async (req, res) => {
 };
 
 exports.viewItem = async (req, res) => {
+    // Parse
     const moveId = parseInt(req.params.id);
-    if (isNaN(moveId)) return res.status(400).json({ error: "Invalid ID" });
-
+    if (isNaN(moveId)) return res.status(400).json({ error: "ID invalid/tidak ada!" });
+    // Get One
     try {
         const track = await prisma.itemTrack.findUnique({ where: { moveId } });
         if (!track) return res.status(404).json({ error: "ItemTrack not found" });
@@ -27,12 +29,12 @@ exports.viewItem = async (req, res) => {
 };
 
 exports.postItem = async (req, res) => {
+    // Parse
     const { itemId, fromLocateId, toLocateId, quantity, moveDate } = req.body;
-
     if (!itemId || !fromLocateId || !toLocateId || !quantity) {
         return res.status(400).json({ error: "Missing required fields" });
     }
-
+    // Create
     try {
         const newTrack = await prisma.itemTrack.create({
             data: {
@@ -51,9 +53,10 @@ exports.postItem = async (req, res) => {
 };
 
 exports.editItem = async (req, res) => {
+    // Parse
     const moveId = parseInt(req.params.id);
-    if (isNaN(moveId)) return res.status(400).json({ error: "Invalid ID" });
-
+    if (isNaN(moveId)) return res.status(400).json({ error: "ID invalid/tidak ada!" });
+    // Edit
     try {
         const updatedTrack = await prisma.itemTrack.update({
             where: { moveId },
@@ -63,24 +66,25 @@ exports.editItem = async (req, res) => {
     } catch (error) {
         console.error("Error updating item track:", error);
         if (error.code === 'P2025') {
-            return res.status(404).json({ error: "ItemTrack not found" });
+            return res.status(404).json({ error: "ItemTrack not found!" });
         }
-        res.status(500).json({ error: "Failed to update item track" });
+        res.status(500).json({ error: "Failed to update item track!" });
     }
 };
 
 exports.deleteItem = async (req, res) => {
+    // Parse
     const moveId = parseInt(req.params.id);
-    if (isNaN(moveId)) return res.status(400).json({ error: "Invalid ID" });
-
+    if (isNaN(moveId)) return res.status(400).json({ error: "ID invalid/tidak ada!" });
+    // Delete
     try {
         const deletedTrack = await prisma.itemTrack.delete({ where: { moveId } });
         res.json(deletedTrack);
     } catch (error) {
         console.error("Error deleting item track:", error);
         if (error.code === 'P2025') {
-            return res.status(404).json({ error: "ItemTrack not found" });
+            return res.status(404).json({ error: "ItemTrack not found!" });
         }
-        res.status(500).json({ error: "Failed to delete item track" });
+        res.status(500).json({ error: "Failed to delete item track!" });
     }
 };
