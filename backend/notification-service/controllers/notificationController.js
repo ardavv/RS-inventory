@@ -1,5 +1,5 @@
 const { PrismaClient } = require("@prisma/client");
-const { publishNotification } = require('../configs/rabbidmq');
+const { publishNotification } = require('../configs/rabbitmq');
 
 const prisma = new PrismaClient();
 

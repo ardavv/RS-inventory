@@ -7,7 +7,7 @@ dotenv.config();
 /*
     RabbidMQ Init
 */
-const { connectRabbitMQ } = require('./configs/rabbidmq');
+const { connectRabbitMQ } = require('./configs/rabbitmq');
 connectRabbitMQ();
 
 /*
