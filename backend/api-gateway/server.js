@@ -164,6 +164,6 @@ app.get("/health", (req, res) => {
 
 app.listen(PORT, () => {
   console.log(
-    `✅ API Gateway is running and listening on http://localhost:${PORT}`
+    `API Gateway is running and listening on http://localhost:${PORT}`
   );
 });

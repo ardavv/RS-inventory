@@ -10,11 +10,6 @@ const passport = require("passport");
 
 router.post("/register", register);
 router.post("/login", login);
-router.post(
-  "/logina", (req, res) => {
-    res.status(200).json({ message: "Login endpoint" });
-  }
-);
 
 router.get(
   "/",
