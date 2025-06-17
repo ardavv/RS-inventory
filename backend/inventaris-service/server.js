@@ -6,7 +6,7 @@ const itemRoutes = require('./routes/itemRoutes');
 dotenv.config();
 
 app.use(express.json());
-app.use('/items', itemRoutes);
+app.use('/', itemRoutes);
 
 const PORT = process.env.PORT || 3002;
 app.listen(PORT, () => {

@@ -8,7 +8,8 @@ dotenv.config();
     Express Uses
 */
 app.use(express.json());
-app.use("/api/tracking", require("./routes/trackingRoutes"));
+
+app.use("/", require("./routes/trackingRoutes"));
 
 /*
     Port Exposure

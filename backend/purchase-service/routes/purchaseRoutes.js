@@ -6,5 +6,6 @@ router.get('/', controller.getAllPurchases);
 router.get('/:id', controller.getPurchaseById);
 router.post('/', controller.createPurchase);
 router.put('/:id', controller.updatePurchaseStatus);
+router.delete('/:id', controller.deletePurchase);
 
 module.exports = router;
