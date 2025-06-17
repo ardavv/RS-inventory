@@ -50,7 +50,6 @@ function publishNotification(message) {
   } catch (err) {
     console.error('AMQP publish failed!: ', err);
   }
-  }
   // MQTT
   try {
     if (!mqttClient.connected) throw new Error("MQTT client not connected!"); // Cek koneksi
