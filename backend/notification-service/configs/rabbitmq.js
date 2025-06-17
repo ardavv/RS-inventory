@@ -6,6 +6,8 @@ const mqtt = require("mqtt");
 
 const AMQP_BROKER = process.env.AMQP_BROKER_URL || "amqp://localhost:5672";
 const MQTT_BROKER = process.env.MQTT_BROKER_URL || "mqtt://localhost:1883";
+const MQTT_toggle = process.env.ENABLE_MQTT || "true";
+const AMQP_toggle = process.env.ENABLE_AMQP || "true";
 const MQTT_TOPIC = "notification";
 
 /*
@@ -36,25 +38,26 @@ async function connectRabbitMQ() {
 function publishNotification(message) {
   const payload = JSON.stringify(message);
   // AMQP
-  try {
-    if (!channel) throw new Error('RabbitMQ channel not connected!'); // Cek koneksi
-    channel.publish(
-      'notifications',
-      '',
-      Buffer.from(payload),
-      {persistent: true,}
-    );
-    console.log("Published to RabbitMQ (AMQP): ", payload);
-  } catch (err) {
-    console.error('AMQP publish failed!: ', err);
+  if (AMQP_toggle == true) {
+    try {
+      if (!channel) throw new Error("RabbitMQ channel not connected!"); // Cek koneksi
+      channel.publish("notifications", "", Buffer.from(payload), {
+        persistent: true,
+      });
+      console.log("Published to RabbitMQ (AMQP): ", payload);
+    } catch (err) {
+      console.error("AMQP publish failed!: ", err);
+    }
   }
   // MQTT
-  try {
-    if (!mqttClient.connected) throw new Error("MQTT client not connected!"); // Cek koneksi
-    mqttClient.publish(MQTT_TOPIC, payload);
-    console.log("Published to MQTT:", payload);
-  } catch (err) {
-    console.error("MQTT publish failed:", err);
+  if (MQTT_toggle == true) {
+    try {
+      if (!mqttClient.connected) throw new Error("MQTT client not connected!"); // Cek koneksi
+      mqttClient.publish(MQTT_TOPIC, payload);
+      console.log("Published to MQTT:", payload);
+    } catch (err) {
+      console.error("MQTT publish failed:", err);
+    }
   }
 }
 
