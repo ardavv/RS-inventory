@@ -1,11 +1,8 @@
 # Abaikan semua file .env di semua folder
-*/.env
-**/.env
+.env
 
-# Best practice: Buat file .env.example yang berisi variabel apa saja yang dibutuhkan
-!/.env.example
-!*/.env.example
-!**/.env.example
+# Kecuali file .env.example yang berisi contoh konfigurasi
+!.env.example
 
 
 # Abaikan folder dependencies (wajib)
