@@ -1,0 +1,44 @@
+# =========================================
+# File ini harus berada di root proyek Anda
+# =========================================
+
+# Abaikan semua file .env di semua folder
+# Ini adalah baris terpenting untuk kasus Anda
+**/.env
+
+# Namun, jangan abaikan file contohnya
+# Best practice: Buat file .env.example yang berisi variabel apa saja yang dibutuhkan
+!/.env.example
+!**/.env.example
+
+
+# Abaikan folder dependencies (wajib)
+# Folder ini bisa dibuat ulang dengan `npm install`
+node_modules/
+**/node_modules/
+
+
+# Abaikan file Log
+# File log dibuat saat runtime dan tidak boleh masuk ke repository
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+
+# Abaikan folder hasil build/dist
+# Folder ini berisi kode hasil kompilasi (misalnya dari TypeScript)
+dist/
+build/
+
+
+# Abaikan file sistem operasi (macOS, Windows, Linux)
+.DS_Store
+Thumbs.db
+
+
+# Abaikan folder konfigurasi IDE/Editor
+.vscode/
+.idea/

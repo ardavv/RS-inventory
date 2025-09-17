@@ -19,7 +19,6 @@ if (!JWT_SECRET) {
 }
 
 // --- KONFIGURASI MICROSERVICES ---
-// auth = true menandakan rute ini memerlukan autentikasi
 const services = [
   {
     route: "/api/auth",
@@ -82,7 +81,7 @@ const authenticateToken = (req, res, next) => {
     const decoded = jwt.verify(token, JWT_SECRET);
     req.user = decoded; // Menyimpan payload token (misal: { id: 'user-id', role: 'admin' })
   } catch (error) {
-    // Jika token ada tapi tidak valid (misal: kadaluarsa atau salah)
+    // Jika token ada tapi tidak valid (misal: kadaluwarsa atau salah)
     return res.status(401).json({ error: "Invalid or expired token." });
   }
 
@@ -93,7 +92,7 @@ app.use(authenticateToken);
 
 // --- PROXY SETUP ---
 
-console.log("🚀 Setting up API Gateway proxies...");
+console.log("Setting up API Gateway proxies...");
 
 services.forEach(({ route, target, auth }) => {
   // Opsi untuk proxy middleware
