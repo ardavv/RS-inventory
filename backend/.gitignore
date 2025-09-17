@@ -1,14 +1,10 @@
-# =========================================
-# File ini harus berada di root proyek Anda
-# =========================================
-
 # Abaikan semua file .env di semua folder
-# Ini adalah baris terpenting untuk kasus Anda
+*/.env
 **/.env
 
-# Namun, jangan abaikan file contohnya
 # Best practice: Buat file .env.example yang berisi variabel apa saja yang dibutuhkan
 !/.env.example
+!*/.env.example
 !**/.env.example
 
 
